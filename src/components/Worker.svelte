@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import TestWorker from "web-worker:~/modules/test.worker.ts";
+	import TestWorker from "web-worker:@/modules/test.worker";
 
 	let worker: Worker, workerResponse: string;
 

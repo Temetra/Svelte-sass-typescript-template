@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import { waitFor, checkResponse } from "~/modules/fetching.ts";
+	import { waitFor, checkResponse } from "@/modules/fetching";
 
 	let textPromise: Promise<string>;
 	const fetchDelay: number = 2000;

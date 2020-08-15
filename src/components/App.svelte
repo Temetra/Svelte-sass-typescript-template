@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Header from "~/Header.svelte";
-	import Worker from "~/Worker.svelte";
-	import Lorem from "~/Lorem.svelte";
-	import Counter from "~/Counter.svelte";
+	import Header from "@/components/Header.svelte";
+	import Worker from "@/components/Worker.svelte";
+	import Lorem from "@/components/Lorem.svelte";
+	import Counter from "@/components/Counter.svelte";
 </script>
 
 <style type="text/scss">

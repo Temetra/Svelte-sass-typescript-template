@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { count } from "~/stores/datastore.ts";
+	import { count } from "@/stores/datastore";
 
 	function increment() {
 		count.update(n => n + 1);

@@ -3,11 +3,7 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"paths": {
-			"web-worker:~/modules/*": ["src/modules/*"],
-			"~/scss/*": ["src/scss/*"],
-			"~/stores/*": ["src/stores/*"],
-			"~/modules/*": ["src/modules/*"],
-			"~/*": ["src/components/*"],
+			"@/*": ["src/*"]
 		}
 	},
 	"include": ["src/**/*", "src/modules/**/*"],
