@@ -5,7 +5,7 @@
 	let textPromise: Promise<string>;
 	const fetchDelay: number = 2000;
 
-	onMount(async () => {
+	onMount(() => {
 		// Fetch text from file after n milliseconds
 		textPromise = waitFor(fetchDelay)
 			.then(() => fetch("./lorem.txt"))
