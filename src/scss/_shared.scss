@@ -1,6 +1,3 @@
-// Default font family for app
-$fontfam:Arial, Helvetica, sans-serif;
-
 @mixin set-colors($colors) {
 	color:map-get($colors, "text");
 	background-color:map-get($colors, "background");

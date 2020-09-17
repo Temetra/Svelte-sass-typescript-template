@@ -12,6 +12,8 @@ import path from "path";
 import alias from "@rollup/plugin-alias";
 import babel from "@rollup/plugin-babel";
 import scss from "rollup-plugin-scss";
+import postcss from "postcss";
+import autoprefixer from "autoprefixer";
 import webWorkerLoader from "rollup-plugin-web-worker-loader";
 
 function serve() {
@@ -73,7 +75,7 @@ export default {
 			preprocess: sveltePreprocess({
 				scss: {
 					includePaths: ["./src/scss"],
-					sourceMap: !production
+					sourceMap: true
 				}
 			}),
 			// Emit CSS for scss plugin to bundle
@@ -84,7 +86,10 @@ export default {
 		scss({
 			output: "public/build/bundle.css",
 			outputStyle: production ? "compressed" : "",
-			sourceMap: !production,
+			sourceMap: true,
+			processor: css => postcss([autoprefixer])
+				.process(css, { from: undefined })
+				.then(result => result.css)
 		}),
 
 		// Convert CommonJS modules to ES6
@@ -93,14 +98,12 @@ export default {
 		// Web workers
 		// fixMapSources throws error, skipping inline sourcemap
 		webWorkerLoader({ 
-			sourcemap:false, 
-			extensions:[".ts", ".js"] 
+			sourcemap: false, 
+			extensions: [".ts", ".js"] 
 		}),
 
 		// Process TS
-		typescript({ 
-			sourceMap: !production 
-		}),
+		typescript(),
 
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated
@@ -114,7 +117,7 @@ export default {
 		production && babel({
 			extensions: [".js", ".jsx", ".es6", ".es", ".mjs", ".svelte"],
 			babelHelpers: "runtime",
-			presets: [["@babel/preset-env", { targets: "> 0.25%, not dead" }]],
+			presets: [["@babel/preset-env"]],
 			plugins: ["@babel/plugin-transform-runtime"]
 		}),
 
