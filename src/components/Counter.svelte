@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { count } from "@/stores/datastore";
+	import { count, squaredCount } from "@/stores/datastore";
 
 	function increment() {
 		count.update(n => n + 1);
@@ -15,12 +15,11 @@
 
 <section>
 	<h2>Stores</h2>
-	The count is {$count}
-
-	<button on:click={decrement}>
-		-
-	</button>
-	<button on:click={increment}>
-		+
-	</button>
+	<p>
+		The count is {$count} and the square is {$squaredCount}
+	</p>
+	<p>
+		<button on:click={decrement}>-</button>
+		<button on:click={increment}>+</button>
+	</p>
 </section>

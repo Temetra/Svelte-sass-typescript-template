@@ -1,7 +1,9 @@
-import { writable } from "svelte/store";
+import { writable, derived } from "svelte/store";
 
-function squareNumber(input: number):number{
+// Some Typescript to test the config
+function squareNumber(input: number):number {
 	return input * input;
 }
 
-export const count = writable(squareNumber(0));
+export const count = writable(0);
+export const squaredCount = derived([count], ([count]) => squareNumber(count));
