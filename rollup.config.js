@@ -69,8 +69,11 @@ export default {
 
 		// Compile Svelte components
 		svelte({
-			// enable run-time checks when not in production
-			dev: !production,
+			compilerOptions: {
+				// enable run-time checks when not in production
+				dev: !production,
+			},
+
 			// Processes SCSS embedded within Svelte files
 			preprocess: sveltePreprocess({
 				scss: {
@@ -78,6 +81,7 @@ export default {
 					sourceMap: true
 				}
 			}),
+
 			// Emit CSS for scss plugin to bundle
 			emitCss: true
 		}),
