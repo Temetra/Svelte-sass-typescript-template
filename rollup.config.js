@@ -89,7 +89,7 @@ export default {
 		// Processes SCSS imported from other JS files and plugins
 		scss({
 			output: "public/build/bundle.css",
-			outputStyle: production ? "compressed" : "",
+			outputStyle: production ? "compressed" : "expanded",
 			sourceMap: true,
 			processor: css => postcss([autoprefixer])
 				.process(css, { from: undefined })
