@@ -83,6 +83,7 @@ export default {
 
 		// Processes SCSS imported from other JS files and plugins
 		scss({
+			sass: require('sass'),
 			output: "public/build/bundle.css",
 			outputStyle: production ? "compressed" : "expanded",
 			sourceMap: true,
