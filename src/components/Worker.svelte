@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import TestWorker from "web-worker:@/modules/test.worker";
+	import workerURL from "omt:+/modules/test.worker";
 
 	let worker: Worker, workerResponse: string;
 
 	onMount(async () => {
 		// Create and query worker
-		worker = new TestWorker();
+		worker = new Worker(`./build/${workerURL}`, { type: "module" });
 
 		worker.addEventListener("message", function(evt) {
 			console.log(`Client got: ${evt.data}`);

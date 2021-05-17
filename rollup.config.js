@@ -1,7 +1,6 @@
 import svelte from 'rollup-plugin-svelte';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
@@ -14,7 +13,7 @@ import babel from "@rollup/plugin-babel";
 import scss from "rollup-plugin-scss";
 import postcss from "postcss";
 import autoprefixer from "autoprefixer";
-import webWorkerLoader from "rollup-plugin-web-worker-loader";
+import OMT from "@surma/rollup-plugin-off-main-thread";
 
 function serve() {
 	let server;
@@ -41,20 +40,16 @@ export default {
 	input: 'src/main.ts',
 	output: {
 		sourcemap: true,
-		format: 'iife',
-		name: 'app',
-		file: 'public/build/bundle.js'
+		format: "amd",
+		name: "app",
+		dir: "public/build/",
+		chunkFileNames: "[name].js"
 	},
 	plugins: [
 		// Rewrite imports for non-typescript files
 		alias({
-			entries: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
+			entries: [{ find: "+", replacement: path.resolve(__dirname, "src") }],
 			customResolver: resolve({ extensions: [".svelte", ".svg", ".scss"] })
-		}),
-
-		// Rewrite imports for web workers
-		alias({
-			entries: [{ find: /web-worker:@(.*)/, replacement: "web-worker:" + path.resolve(__dirname, "src/$1") }],
 		}),
 
 		// If you have external dependencies installed from
@@ -100,11 +95,7 @@ export default {
 		commonjs(),
 
 		// Web workers
-		// fixMapSources throws error, skipping inline sourcemap
-		webWorkerLoader({ 
-			sourcemap: false, 
-			extensions: [".ts", ".js"] 
-		}),
+		OMT(),
 
 		// Process TS
 		typescript(),
@@ -112,10 +103,6 @@ export default {
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated
 		!production && serve(),
-
-		// Watch the `public` directory and refresh the
-		// browser on changes when not in production
-		!production && livereload('public'),
 
 		// Transpile
 		production && babel({

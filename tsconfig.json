@@ -3,7 +3,8 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"paths": {
-			"@/*": ["src/*"]
+			"+/*": ["src/*"],
+			"omt:+/*": ["src/*"]
 		}
 	},
 	"include": ["src/**/*", "src/modules/**/*"],
